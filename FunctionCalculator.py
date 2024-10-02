@@ -43,8 +43,9 @@ def getColor(func: str, value: complex):
     else:
         r = 255 - int(765 * (2 * cmath.pi - phase_angle) / (2 * cmath.pi))
 
-    if 2 * cmath.pi / 3 > phase_angle >= 0:
-        g = 255 - int(765 * (phase_angle - 2 * cmath.pi / 3) / (2 * cmath.pi))
+    if 2 * cmath.pi / 3 > phase_angle > 0:
+        g = 255 - int(765 * (2 * cmath.pi-phase_angle) / (2 * cmath.pi))
+        #g=0
     elif 4 * cmath.pi / 3 > phase_angle >= 2 * cmath.pi / 3:
         g = 255 - int(765 * (2 * cmath.pi - phase_angle - 2 * cmath.pi / 3) / (2 * cmath.pi))
     else:
@@ -57,10 +58,14 @@ def getColor(func: str, value: complex):
     else:
         b = 255 - int(765 * (2 * cmath.pi - phase_angle - 4 * cmath.pi / 3) / (2 * cmath.pi))
 
+    r=0
+    #g=0
+    b=0
+
     return (r / 255, g / 255, b / 255)  # Normalizamos a valores entre 0 y 1 para matplotlib
 
 # Función para graficar usando matplotlib
-def plot_complex_function(func: str, re_min=-2, re_max=2, im_min=-2, im_max=2, resolution=500):
+def plot_complex_function(func: str, re_min=-2, re_max=2, im_min=-2, im_max=2, resolution=50):
     """Grafica una función compleja en el plano usando colores."""
     re = np.linspace(re_min, re_max, resolution)
     im = np.linspace(im_min, im_max, resolution)
@@ -76,9 +81,8 @@ def plot_complex_function(func: str, re_min=-2, re_max=2, im_min=-2, im_max=2, r
     for i in range(resolution):
         for j in range(resolution):
             colors[i, j] = getColor(func, Z[i, j])
-            os.system("cls")
-            print("cargando: " + str(j) + "/" + str(resolution))
-            print("cargando: " + str(i) + "/" + str(resolution))
+            #os.system("cls")
+            print("cargando: " + str(j) + "/" + str(resolution), "total: " + str(i) + "/" + str(resolution))
     
     # Mostrar el gráfico con matplotlib
     plt.imshow(colors, extent=(re_min, re_max, im_min, im_max))
@@ -90,4 +94,4 @@ def plot_complex_function(func: str, re_min=-2, re_max=2, im_min=-2, im_max=2, r
 if __name__ == '__main__':
     # Prueba de la función
     func_str = "f(x)=x"
-    plot_complex_function(func_str, re_min=-2, re_max=2, im_min=-2, im_max=2, resolution=100)
+    plot_complex_function(func_str, re_min=-2, re_max=2, im_min=-2, im_max=2, resolution=50)
