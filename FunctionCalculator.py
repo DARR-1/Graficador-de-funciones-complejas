@@ -36,36 +36,35 @@ def getColor(func: str, value: complex):
         phase_angle += 2 * cmath.pi
 
     # Convertir el ángulo en un valor de color RGB
-    if 2 * cmath.pi / 3 > phase_angle >= 0:
-        r = 255 - int(765 * phase_angle / (2 * cmath.pi))
-    elif 4 * cmath.pi / 3 > phase_angle >= 2 * cmath.pi / 3:
-        r = 0
+    if cmath.pi/3 >= phase_angle or phase_angle >= 2*cmath.pi-cmath.pi/3:
+        r = 255
+    elif 5*cmath.pi/3 >= phase_angle >= 4*cmath.pi/3:
+        r=int((phase_angle - 4*cmath.pi/3)/(4*cmath.pi/3))
     else:
-        r = 255 - int(765 * (2 * cmath.pi - phase_angle) / (2 * cmath.pi))
+        r=0
 
-    if 2 * cmath.pi / 3 > phase_angle > 0:
-        g = 255 - int(765 * (2 * cmath.pi-phase_angle) / (2 * cmath.pi))
-        #g=0
-    elif 4 * cmath.pi / 3 > phase_angle >= 2 * cmath.pi / 3:
-        g = 255 - int(765 * (2 * cmath.pi - phase_angle - 2 * cmath.pi / 3) / (2 * cmath.pi))
-    else:
+    if 2*cmath.pi-cmath.pi/3 >= phase_angle >= cmath.pi:
         g = 0
-
-    if 2 * cmath.pi / 3 > phase_angle >= 0:
-        b = 0
-    elif 4 * cmath.pi / 3 > phase_angle >= 2 * cmath.pi / 3:
-        b = 255 - int(765 * (phase_angle - 4 * cmath.pi / 3) / (2 * cmath.pi))
+    elif 2*cmath.pi >= phase_angle >= 4*cmath.pi/3:
+        g=int((cmath.pi/3)/((2*cmath.pi - phase_angle)))
+        #g=255
     else:
-        b = 255 - int(765 * (2 * cmath.pi - phase_angle - 4 * cmath.pi / 3) / (2 * cmath.pi))
+        g=0
 
-    r=0
+    if cmath.pi >= phase_angle >= cmath.pi/3:
+        b = 0
+        #b=120
+    else:
+        b=0
+
+    #r=0
     #g=0
-    b=0
+    #b=0
 
-    return (r / 255, g / 255, b / 255)  # Normalizamos a valores entre 0 y 1 para matplotlib
+    return (r, g, b)  # Normalizamos a valores entre 0 y 1 para matplotlib
 
 # Función para graficar usando matplotlib
-def plot_complex_function(func: str, re_min=-2, re_max=2, im_min=-2, im_max=2, resolution=50):
+def plot_complex_function(func: str, re_min=-2, re_max=2, im_min=-2, im_max=2, resolution=500):
     """Grafica una función compleja en el plano usando colores."""
     re = np.linspace(re_min, re_max, resolution)
     im = np.linspace(im_min, im_max, resolution)
