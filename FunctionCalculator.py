@@ -36,13 +36,23 @@ def getColor(func: str, value: complex):
         phase_angle += 2 * cmath.pi
 
     # Convertir el ángulo en un valor de color RGB
+<<<<<<< Updated upstream
     if 2 * cmath.pi / 3 > phase_angle >= 0:
         r = 255 - int(765 * phase_angle / (2 * cmath.pi))
     elif 4 * cmath.pi / 3 > phase_angle >= 2 * cmath.pi / 3:
         r = 0
+=======
+    if cmath.pi/3 >= phase_angle or phase_angle >= 2*cmath.pi-cmath.pi/3:
+        r = 255
+    elif 5*cmath.pi/3 >= phase_angle >= 4*cmath.pi/3:
+        r=(phase_angle - 4*cmath.pi/3)/(cmath.pi/3)
+    elif 2 * cmath.pi/3>= phase_angle >= cmath.pi/3:
+        r=1-(phase_angle - cmath.pi/3)/(cmath.pi/3)
+>>>>>>> Stashed changes
     else:
         r = 255 - int(765 * (2 * cmath.pi - phase_angle) / (2 * cmath.pi))
 
+<<<<<<< Updated upstream
     if 2 * cmath.pi / 3 > phase_angle > 0:
         g = 255 - int(765 * (2 * cmath.pi-phase_angle) / (2 * cmath.pi))
         #g=0
@@ -55,6 +65,26 @@ def getColor(func: str, value: complex):
         b = 0
     elif 4 * cmath.pi / 3 > phase_angle >= 2 * cmath.pi / 3:
         b = 255 - int(765 * (phase_angle - 4 * cmath.pi / 3) / (2 * cmath.pi))
+=======
+    if 2*cmath.pi-cmath.pi/3 >= phase_angle >= cmath.pi:
+        g = 255
+    elif 2 * cmath.pi >= phase_angle >= 4*cmath.pi/3:
+        g=1-(phase_angle - 5*cmath.pi/3)/(cmath.pi/3)
+        #g=255
+        #g=0
+    elif cmath.pi >= phase_angle >= 2*cmath.pi/3:
+        g=(phase_angle - 2*cmath.pi/3)/(cmath.pi/3)
+    else:
+        g=0
+
+    if cmath.pi >= phase_angle >= cmath.pi/3:
+        b = 255
+        #b=120
+    elif cmath.pi/3 >= phase_angle >= 0:
+        b=(phase_angle)/(cmath.pi/3)
+    elif 4*cmath.pi/3 >= phase_angle >= cmath.pi:
+        b=1 - (phase_angle - cmath.pi)/(cmath.pi/3)
+>>>>>>> Stashed changes
     else:
         b = 255 - int(765 * (2 * cmath.pi - phase_angle - 4 * cmath.pi / 3) / (2 * cmath.pi))
 
@@ -93,5 +123,9 @@ def plot_complex_function(func: str, re_min=-2, re_max=2, im_min=-2, im_max=2, r
 
 if __name__ == '__main__':
     # Prueba de la función
-    func_str = "f(x)=x"
-    plot_complex_function(func_str, re_min=-2, re_max=2, im_min=-2, im_max=2, resolution=50)
+    #func_str = "f(x)=x**2 + 1"
+    #func_str = "f(x)=x**2 - 1"
+    #func_str = "f(x)=x"
+    #func_str = "f(x)=(-2)**x + 1"
+    func_str = "f(x)=2**x+1"
+    plot_complex_function(func_str, re_min=-10, re_max=10, im_min=-10, im_max=10, resolution=200)
